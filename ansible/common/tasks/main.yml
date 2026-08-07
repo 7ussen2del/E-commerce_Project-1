@@ -1,0 +1,14 @@
+---
+- name: Update Packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Set TimeZone
+  community.general.timezone:
+    name: "{{ timezone }}"
+
+- name: Set Hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"

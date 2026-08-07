@@ -1,0 +1,4 @@
+---
+docker_package: docker
+docker_service: docker
+docker_user: ec2-user

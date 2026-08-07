@@ -20,7 +20,7 @@ resource "aws_instance" "example" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [var.security_group_id]
   root_block_device {
-  volume_size = 20
+  volume_size = 30
   volume_type = "gp3"
 }
   tags = {
