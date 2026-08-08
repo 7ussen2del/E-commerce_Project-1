@@ -6,10 +6,11 @@ spec:
   ingressClassName: nginx
   rules:
     - http:
-        path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: my-app-service
-            port:
-              number: 80
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-app-service
+                port:
+                  number: 80
