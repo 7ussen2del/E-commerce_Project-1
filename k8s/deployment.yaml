@@ -30,7 +30,7 @@ spec:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d/default.conf
               subPath: default.conf
-  volumes:
-    - name: nginx-config
-      configMap:
-        name: eco-nginx-config
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: eco-nginx-config
