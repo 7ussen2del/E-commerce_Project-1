@@ -43,6 +43,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to Kubernetes'){
+            steps {
+                sh 'kubectl set image deployment/my-app react-app=$DOCKER_HUB_REPO:$IMAGE_TAG'
+            }
+        }
+
+        stage('Verify Deployment'){
+            steps{
+                sh 'kubectl rollout status deployment/my-app'
+            }
+        }
     }
         post{
         always{
