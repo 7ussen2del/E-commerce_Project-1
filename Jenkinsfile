@@ -38,7 +38,7 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
-                    sh 'docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"'
+                    sh 'docker login -u "$DOCKER_USER" -p "$DOCKER_PASS" --password-stdin'
                     sh 'docker push $DOCKER_HUB_REPO:$IMAGE_TAG'
                 }
             }

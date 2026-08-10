@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('axios');
+
+test('renders FreshCart login page', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const loginElement = screen.getByText(/login now/i);
+
+  expect(loginElement).toBeInTheDocument();
 });
