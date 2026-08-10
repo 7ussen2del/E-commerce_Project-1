@@ -50,6 +50,12 @@ pipeline {
                     sh 'docker push $DOCKER_HUB_REPO:$IMAGE_TAG'
                 }
         }
+        
+        stage('Apply Kubernetes'){
+            steps {
+                sh 'kubectl apply -f k8s/'
+            }
+        }
 
         stage('Deploy to Kubernetes'){
             steps {
