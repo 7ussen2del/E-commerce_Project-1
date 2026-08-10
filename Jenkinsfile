@@ -45,11 +45,10 @@ pipeline {
         }
 
         stage('Push to Docker Hub') {
-            steps {
+            steps 
                 {
                     sh 'docker push $DOCKER_HUB_REPO:$IMAGE_TAG'
                 }
-            }
         }
 
         stage('Deploy to Kubernetes'){
