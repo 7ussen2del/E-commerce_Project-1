@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect ,useCallback } from "react";
 import { useState } from "react";
 
 export let CartContext = createContext();
@@ -25,14 +25,14 @@ export default function CartContextProvider(props) {
       .catch((error) => error);
   }
 
-  function getLoogedUserCart() {
+const getLoogedUserCart = useCallback(() => {
     return axios
-      .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
-        headers,
-      })
-      .then((response) => response)
-      .catch((error) => error);
-  }
+        .get(`https://ecommerce.routemisr.com/api/v1/cart`, {
+            headers,
+        })
+        .then((response) => response)
+        .catch((error) => error);
+}, []);
 
   function removeCartItem(id) {
     return axios
@@ -72,18 +72,17 @@ export default function CartContextProvider(props) {
     }
   }
 
-  async function getCart() {
+  useEffect(() => {
+    async function getCart() {
     let { data } = await getLoogedUserCart();
     if (data?.status === "success") {
       setnumOfCartItems(data?.numOfCartItems);
     }
   }
-
-  useEffect(() => {
     if (cartId) {
       getCart();
     }
-  }, []);
+  }, [cartId,getLoogedUserCart]);
 
   return (
     <CartContext.Provider

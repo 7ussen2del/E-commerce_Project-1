@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
-import style from "./Login.module.css";
 import * as yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,7 +36,7 @@ export default function Login() {
     email: yup.string().email("email is invalid").required("email is required"),
     password: yup
       .string()
-      .matches(/^[\w\.-]{6,}$/gm, "password is invalid")
+      .matches(/^[\w.-]{6,}$/gm, "password is invalid")
       .required("password is required"),
   });
   // formik

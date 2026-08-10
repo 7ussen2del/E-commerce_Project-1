@@ -2,17 +2,15 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import { RotatingLines } from "react-loader-spinner";
-import { useState } from "react";
 import { Helmet } from "react-helmet";
 export default function Brand() {
-  const [pageNum, setpageNum] = useState(1);
 
   async function getBrand(pageNum = 1) {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     return await axios.get(`https://ecommerce.routemisr.com/api/v1/brands`);
   }
 
-  let { data, isLoading } = useQuery("getBrand", getBrand);
+  let { data } = useQuery("getBrand", getBrand);
 
   return (
     <>

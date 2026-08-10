@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import style from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/images/freshcart-logo.svg";
 import { useNavigate } from "react-router-dom";
@@ -65,22 +64,22 @@ export default function Navbar() {
             </ul>
             <ul className="navbar-nav me-auto">
               <li className="nav-item d-flex align-items-center">
-                <a href="">
+                <a href="https://www.instagram.com/?hl=en">
                   <i className="fab fa-instagram nav-link active"></i>
                 </a>
-                <a href="">
+                <a href="https://www.facebook.com/">
                   <i className="fab fa-facebook nav-link active"></i>
                 </a>
-                <a href="">
+                <a href="https://www.tiktok.com/en/">
                   <i className="fab fa-tiktok nav-link active"></i>
                 </a>
-                <a href="">
+                <a href="https://x.com/">
                   <i className="fab fa-twitter nav-link active"></i>
                 </a>
-                <a href="">
+                <a href="https://www.linkedin.com/feed/">
                   <i className="fab fa-linkedin nav-link active"></i>
                 </a>
-                <a href="">
+                <a href="https://www.youtube.com/">
                   <i className="fab fa-youtube nav-link active"></i>
                 </a>
               </li>

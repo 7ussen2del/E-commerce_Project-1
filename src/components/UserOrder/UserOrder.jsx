@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { OrderContext } from "../Context/OrderContext";
-import { CartContext } from "../Context/CartContext";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import { Helmet } from "react-helmet";
 
@@ -10,18 +8,18 @@ export default function UserOrder() {
   let { getOrders, lastOrder } = useContext(OrderContext);
   let [isLoading, setLoading] = useState(true);
   const { id } = jwtDecode(localStorage.getItem("userToken"));
-  const navigate = useNavigate();
 
-  async function displayOrders(id) {
-    let response = await getOrders(id);
-    if (response?.status === 200) {
-      setLoading(false);
+useEffect(() => {
+    async function displayOrders() {
+        let response = await getOrders(id);
+
+        if (response?.status === 200) {
+            setLoading(false);
+        }
     }
-  }
 
-  useEffect(() => {
-    displayOrders(id);
-  }, []);
+    displayOrders();
+}, [id, getOrders]);
 
   return (
     <>

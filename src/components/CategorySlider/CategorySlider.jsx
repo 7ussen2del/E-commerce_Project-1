@@ -44,7 +44,7 @@ export default function CategorySlider() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/categories`);
   }
 
-  let { isLoading, isError, data } = useQuery(
+  let { data } = useQuery(
     "CategorySlider",
     getCategorySlider
   );
@@ -58,6 +58,7 @@ export default function CategorySlider() {
               <img
                 key={category._id}
                 src={category.image}
+                alt={category.name}
                 className="w-100 cursor-pointer"
                 height={200}
               />

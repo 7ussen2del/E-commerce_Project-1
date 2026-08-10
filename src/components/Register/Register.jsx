@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import style from "./Register.module.css";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +44,7 @@ export default function Register() {
       .required("phone is required"),
     password: yup
       .string()
-      .matches(/^[\w\.-]{6,}$/gm, "password is invalid")
+      .matches(/^[\w.-]{6,}$/gm, "password is invalid")
       .required("password is required"),
     rePassword: yup
       .string()

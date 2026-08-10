@@ -17,15 +17,20 @@ export default function Cart() {
   const [cartDetails, setcartDetails] = useState(null);
   const [isLoading, setisLoading] = useState(true);
 
-  async function getCart() {
-    let { data } = await getLoogedUserCart();
-    setisLoading(false);
-    if (data?.status === "success") {
-      setcartDetails(data);
-      setcartId(data?.data._id);
+useEffect(() => {
+    async function getCart() {
+        let { data } = await getLoogedUserCart();
+
+        setisLoading(false);
+
+        if (data?.status === "success") {
+            setcartDetails(data);
+            setcartId(data?.data?._id);
+        }
     }
-    return cartDetails;
-  }
+
+    getCart();
+}, [getLoogedUserCart,setcartId]);
 
   async function updateCount(id, count) {
     let { data } = await updateProductQuantity(id, count);
@@ -74,10 +79,7 @@ export default function Cart() {
     setnumOfCartItems(data.numOfCartItems);
   }
 
-  useEffect(() => {
-    getCart();
-  }, []);
-
+  
   return (
     <>
       <Helmet>

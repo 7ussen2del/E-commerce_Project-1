@@ -25,14 +25,14 @@ export default function MainSlider() {
         <div className="row g-0">
           <div className="col-md-9">
             <Slider {...settings}>
-              <img height={400} src={img5} className="w-100" />
-              <img height={400} src={img4} className="w-100" />
-              <img height={400} src={img3} className="w-100" />
+              <img height={400} src={img5} className="w-100" alt="Main slider" />
+              <img height={400} src={img4} className="w-100" alt="Main slider"/>
+              <img height={400} src={img3} className="w-100" alt="Main slider"/>
             </Slider>
           </div>
           <div className="col-md-3">
-            <img height={200} src={img1} className="w-100" />
-            <img height={200} src={img2} className="w-100" />
+            <img height={200} src={img1} className="w-100" alt="Promotional banner"/>
+            <img height={200} src={img2} className="w-100" alt="Promotional banner"/>
           </div>
         </div>
       </div>

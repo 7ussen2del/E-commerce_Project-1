@@ -34,7 +34,7 @@ export default function OrderContextProvider(props) {
 
   useEffect(() => {
     setLastOrder(ordersDetails[ordersDetails.length - 1]);
-  });
+  },[ordersDetails]);
 
   return (
     <OrderContext.Provider
