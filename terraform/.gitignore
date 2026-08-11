@@ -12,7 +12,6 @@ override.tf.json
 
 # Variables
 *.auto.tfvars
-terraform.tfvars
 
 # Keys
 *.pem

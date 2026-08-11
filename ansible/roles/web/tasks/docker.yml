@@ -7,12 +7,12 @@
 - name: Enable Docker
   ansible.builtin.systemd:
     name: docker
-    enabled: true
+    enabled: false
 
 - name: Start Docker
   ansible.builtin.systemd:
     name: docker
-    state: started
+    state: stopped
 
 - name: Add ec2-user to docker group
   ansible.builtin.user:
