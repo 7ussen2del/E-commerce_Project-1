@@ -13,3 +13,7 @@ output "public_ip" {
 output "private_ip" {
   value = aws_instance.example.private_ip
 }
+
+output "control_public_ip" {
+  value = aws_instance.control-ec2.public_ip
+}

@@ -17,3 +17,7 @@ output "instance_private_ip" {
 output "target_group_arn" {
   value = module.alb_tg.target_group_arn
 }
+
+output "control_public_ip" {
+  value = module.ec2.control_public_ip
+}
