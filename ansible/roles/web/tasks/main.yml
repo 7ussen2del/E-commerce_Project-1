@@ -1,7 +1,7 @@
 ---
 
 - name: Configure Web EC2
-  ansible.builtin.import_tasks: package.yml
+  ansible.builtin.import_tasks: packages.yml
 
 - name: Install Docker
   ansible.builtin.import_tasks: docker.yml
