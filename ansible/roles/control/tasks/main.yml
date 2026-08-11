@@ -1,0 +1,13 @@
+---
+
+- name: Configure Control EC2
+  ansible.builtin.import_tasks : packages.yml
+
+- name: Install Jenkins
+  ansible.builtin.import_tasks: jenkins.yml
+
+- name: Install Docker
+  ansible.builtin.import_tasks: docker.yml
+
+- name: Install Ansible
+  ansible.builtin.import_tasks: ansible.yml

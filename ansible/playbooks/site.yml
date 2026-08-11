@@ -1,8 +1,0 @@
----
-- name: Configure EC2 Server
-  hosts: web
-
-  roles:
-    - common
-    - dependencies
-    - docker

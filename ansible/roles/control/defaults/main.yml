@@ -1,0 +1,8 @@
+---
+timezone: Africa/Cairo
+hostname: control
+dependency_packages:
+  - git
+  - unzip
+  - wget
+  - tar

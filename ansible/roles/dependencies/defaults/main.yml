@@ -1,5 +1,0 @@
----
-dependency_packages:
-  - git
-  - unzip
-  - wget

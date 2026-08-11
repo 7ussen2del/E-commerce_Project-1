@@ -1,0 +1,40 @@
+## Install Java
+- name: Install Jenkins dependencies
+  ansible.builtin.dnf:
+    name:
+      - fontconfig
+      - java-21-openjdk
+    state: present
+  
+
+## Install Jenkins  And Start it
+- name: Install fontconfig
+  ansible.builtin.dnf:
+    name: fontconfig
+    state: present
+
+- name: Download Jenkins repository
+  ansible.builtin.get_url:
+    url: https://pkg.jenkins.io/rpm/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+    mode: '0644'
+
+- name: Upgrade packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install Jenkins
+  ansible.builtin.dnf:
+    name: jenkins
+    state: present
+
+- name: Enable Jenkins
+  ansible.builtin.systemd:
+    name: jenkins
+    enabled: true
+
+- name: Start Jenkins
+  ansible.builtin.systemd:
+    name: jenkins
+    state: started
