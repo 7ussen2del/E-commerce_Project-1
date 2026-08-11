@@ -27,3 +27,21 @@ resource "aws_instance" "example" {
     Name = "${var.project}-ec2"
   }
 }
+
+resource "aws_instance" "control-ec2" {
+  ami                    = data.aws_ami.amazon.id
+  instance_type          = var.control_instance_type
+  key_name               = aws_key_pair.deployer.key_name
+  subnet_id              = var.subnet_id
+  vpc_security_group_ids = [var.control_security_group_id]
+
+  root_block_device {
+    volume_size = 30
+    volume_type = "gp3"
+  }
+
+  tags = {
+    Name = "${var.project}-control-ec2"
+    Role = "Jenkins-Ansible-Control"
+  }
+}

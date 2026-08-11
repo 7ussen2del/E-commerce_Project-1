@@ -13,3 +13,11 @@ variable "subnet_id" {
 variable "security_group_id" {
   type = string
 }
+
+variable "control_instance_type" {
+  type = string
+}
+
+variable "control_security_group_id" {
+  type = string
+}

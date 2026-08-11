@@ -22,3 +22,6 @@ variable "az_2" {
   type = string
 }
 
+variable "control_instance_type" {
+  type = string
+}

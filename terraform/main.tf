@@ -4,8 +4,10 @@ module "ec2" {
 
   project           = local.project
   instance_type     = var.instance_type
+  control_instance_type = var.control_instance_type
   subnet_id         = module.network.public_subnet_1_id
   security_group_id = module.security_group.ec2_security_group_id
+  control_security_group_id = module.security_group.control_security_group_id
 }
 
 
