@@ -54,20 +54,31 @@ pipeline {
         
         stage('Apply Kubernetes Manifests') {
             steps {
-                sh 'kubectl apply -f k8s/'
+              sh '''
+                 export KUBECONFIG=/var/lib/jenkins/.kube/config
+                 kubectl config current-context
+                 kubectl cluster-info
+                 kubectl apply -f k8s/
+                '''
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                // تأكد أن my-app و react-app متطابقين مع ملف deployment.yaml
-                sh "kubectl set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}"
+               sh '''
+                 export KUBECONFIG=/var/lib/jenkins/.kube/config
+                 kubectl set image deployment/my-app \
+                 react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
+                '''
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh 'kubectl rollout status deployment/my-app --timeout=60s'
+                sh '''
+                   export KUBECONFIG=/var/lib/jenkins/.kube/config
+                   kubectl rollout status deployment/my-app --timeout=60s
+                 '''
             }
         }
     }
