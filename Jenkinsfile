@@ -55,9 +55,7 @@ pipeline {
        stage('Apply Kubernetes Manifests') {
             steps {
                 sh """
-                    export KUBECONFIG=/var/lib/jenkins/.kube/config
-                    kubectl config use-context kubernetes-admin@kubernetes || true
-                    kubectl apply -f k8s/
+                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/
                 """
             }
         }
@@ -65,8 +63,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh """
-                    export KUBECONFIG=/var/lib/jenkins/.kube/config
-                    kubectl set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
+                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
                 """
             }
         }
@@ -74,8 +71,7 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh """
-                    export KUBECONFIG=/var/lib/jenkins/.kube/config
-                    kubectl rollout status deployment/my-app --timeout=60s
+                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config rollout status deployment/my-app --timeout=60s
                 """
             }
         }
