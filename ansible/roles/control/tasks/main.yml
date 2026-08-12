@@ -11,3 +11,6 @@
 
 - name: Install Ansible
   ansible.builtin.import_tasks: ansible.yml
+
+- name: Install K8s
+  ansible.builtin.import_tasks: kubernetes.yml
