@@ -52,33 +52,31 @@ pipeline {
             }
         }
         
-        stage('Apply Kubernetes Manifests') {
+       stage('Apply Kubernetes Manifests') {
             steps {
-              sh '''
-                 export KUBECONFIG=/var/lib/jenkins/.kube/config
-                 kubectl config current-context
-                 kubectl cluster-info
-                 kubectl apply -f k8s/
-                '''
+                sh """
+                    export KUBECONFIG=/var/lib/jenkins/.kube/config
+                    kubectl config use-context kubernetes-admin@kubernetes || true
+                    kubectl apply -f k8s/
+                """
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-               sh '''
-                 export KUBECONFIG=/var/lib/jenkins/.kube/config
-                 kubectl set image deployment/my-app \
-                 react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
-                '''
+                sh """
+                    export KUBECONFIG=/var/lib/jenkins/.kube/config
+                    kubectl set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
+                """
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh '''
-                   export KUBECONFIG=/var/lib/jenkins/.kube/config
-                   kubectl rollout status deployment/my-app --timeout=60s
-                 '''
+                sh """
+                    export KUBECONFIG=/var/lib/jenkins/.kube/config
+                    kubectl rollout status deployment/my-app --timeout=60s
+                """
             }
         }
     }
