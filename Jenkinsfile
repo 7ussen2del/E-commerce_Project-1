@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_REPO = 'hessen2del/ecommerce-frontend'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
 
     stages {
@@ -39,7 +40,6 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // استخدام علامات التنصيص المزدوجة لتمرير المتغيرات بشكل صحيح
                 sh "docker build -t ${DOCKER_HUB_REPO}:${IMAGE_TAG} ."
                 sh "docker tag ${DOCKER_HUB_REPO}:${IMAGE_TAG} ${DOCKER_HUB_REPO}:latest"
             }
@@ -51,28 +51,22 @@ pipeline {
                 sh "docker push ${DOCKER_HUB_REPO}:latest"
             }
         }
-        
-       stage('Apply Kubernetes Manifests') {
+
+        stage('Apply Kubernetes Manifests') {
             steps {
-                sh """
-                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f k8s/
-                """
+                sh 'kubectl apply -f k8s/'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh """
-                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}
-                """
+                sh "kubectl set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}"
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                sh """
-                    kubectl --kubeconfig=/var/lib/jenkins/.kube/config rollout status deployment/my-app --timeout=60s
-                """
+                sh 'kubectl rollout status deployment/my-app --timeout=60s'
             }
         }
     }
