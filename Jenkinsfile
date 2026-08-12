@@ -23,62 +23,66 @@ pipeline {
             }
         }
 
-    stage('Docker Login') {
-        steps {
-            withCredentials([
-                usernamePassword(
-                    credentialsId: 'dockerhub',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )
+        stage('Docker Login') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
                 ]) {
                     sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                 }
             }
         }
 
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_HUB_REPO:$IMAGE_TAG .'
+                // استخدام علامات التنصيص المزدوجة لتمرير المتغيرات بشكل صحيح
+                sh "docker build -t ${DOCKER_HUB_REPO}:${IMAGE_TAG} ."
+                sh "docker tag ${DOCKER_HUB_REPO}:${IMAGE_TAG} ${DOCKER_HUB_REPO}:latest"
             }
         }
 
         stage('Push to Docker Hub') {
-            steps 
-                {
-                    sh 'docker push $DOCKER_HUB_REPO:$IMAGE_TAG'
-                }
+            steps {
+                sh "docker push ${DOCKER_HUB_REPO}:${IMAGE_TAG}"
+                sh "docker push ${DOCKER_HUB_REPO}:latest"
+            }
         }
         
-        stage('Apply Kubernetes'){
+        stage('Apply Kubernetes Manifests') {
             steps {
                 sh 'kubectl apply -f k8s/'
             }
         }
 
-        stage('Deploy to Kubernetes'){
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl set image deployment/my-app react-app=$DOCKER_HUB_REPO:$IMAGE_TAG'
+                // تأكد أن my-app و react-app متطابقين مع ملف deployment.yaml
+                sh "kubectl set image deployment/my-app react-app=${DOCKER_HUB_REPO}:${IMAGE_TAG}"
             }
         }
 
-        stage('Verify Deployment'){
-            steps{
-                sh 'kubectl rollout status deployment/my-app'
+        stage('Verify Deployment') {
+            steps {
+                sh 'kubectl rollout status deployment/my-app --timeout=60s'
             }
         }
     }
-        post{
-        always{
-            echo "========always========"
+
+    post {
+        always {
+            echo "======== Cleaning up local images ========"
+            sh "docker rmi ${DOCKER_HUB_REPO}:${IMAGE_TAG} ${DOCKER_HUB_REPO}:latest || true"
+            sh "docker logout"
         }
-        success{
-            echo "========pipeline executed successfully ========"
+        success {
+            echo "======== Pipeline executed successfully ========"
         }
-        failure{
-            echo "========pipeline execution failed========"
+        failure {
+            echo "======== Pipeline execution failed ========"
         }
     }
 }
-
