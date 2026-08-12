@@ -1,13 +1,13 @@
 # --- Install kubectl CLI ---
     - name: Download and Install kubectl CLI
       ansible.builtin.get_url:
-        url: "https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl" # أو استخدم أحدث نسخة مستقرة
+        url: "https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl" 
         dest: /usr/local/bin/kubectl
         mode: '0755'
         owner: root
         group: root
 
-    # --- Create .kube directory for Jenkins user ---
+    # -- Create .kube directory for Jenkins user --
     - name: Ensure .kube directory exists for jenkins user
       ansible.builtin.file:
         path: /var/lib/jenkins/.kube
