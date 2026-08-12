@@ -38,3 +38,14 @@
   ansible.builtin.systemd:
     name: jenkins
     state: started
+
+- name: Add jenkins user to docker group
+  ansible.builtin.user:
+    name: jenkins
+    groups: docker
+    append: yes
+
+- name: Restart Jenkins service to apply group changes
+  ansible.builtin.systemd:
+    name: jenkins
+    state: restarted
