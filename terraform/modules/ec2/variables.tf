@@ -1,23 +1,33 @@
-variable "instance_type" {
+variable "jenkins_instance_type" {
 type = string
 }
-
+variable "k8s_instance_type" {
+  type    = string
+}
 variable "project" {
   type = string
 }
 
-variable "subnet_id" {
+variable "subnet_id_1" {
   type = string
 }
 
-variable "security_group_id" {
+variable "subnet_id_2" {
   type = string
 }
 
-variable "control_instance_type" {
+
+variable "jenkins_security_group_id" {
   type = string
 }
 
-variable "control_security_group_id" {
+variable "k8s_security_group_id" {
   type = string
+}
+
+variable "master_count" {
+  type = number
+}
+variable "worker_count" {
+  type = number
 }

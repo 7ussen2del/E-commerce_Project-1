@@ -18,6 +18,11 @@ variable "vpc_id" {
   type = string
 }
 
-variable "ec2_id" {
-  type = string
+variable "worker_instance_ids" {
+  type = list(string)
+}
+
+variable "node_port" {
+  type    = number
+  default = 30000
 }
