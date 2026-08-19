@@ -1,70 +1,267 @@
-# Getting Started with Create React App
+# 🛒 E-Commerce DevOps Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📌 Project Overview
 
-## Available Scripts
+This project demonstrates a complete DevOps workflow for deploying a
+React E-Commerce application on AWS using Infrastructure as Code,
+Configuration Management, CI/CD, Containerization, and Kubernetes.
 
-In the project directory, you can run:
+The infrastructure and deployment process are fully automated using
+Terraform, Ansible, Jenkins, Docker, and Kubernetes.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🏗️ Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```text
+                         GitHub
+                            │
+                            ▼
+                         Jenkins
+                            │
+              ┌─────────────┴─────────────┐
+              │                           │
+          Test & Build              Docker Build
+              │                           │
+              │                           ▼
+              │                      Docker Hub
+              │                           │
+              └──────────────┬────────────┘
+                             │
+                             ▼
+                      Kubernetes Cluster
+                             │
+                    ┌────────┴────────┐
+                    │                 │
+                Master Node       Worker Nodes
+                                      │
+                              ┌───────┴───────┐
+                              │               │
+                           my-app           my-app
+                            Pod               Pod
+                              │               │
+                              └───────┬───────┘
+                                      │
+                                Kubernetes
+                                  Service
+                                NodePort 30000
+                                      │
+                                      ▼
+                              AWS Target Group
+                                      │
+                                      ▼
+                                AWS ALB
+                                      │
+                                      ▼
+                                  End User
 
-### `npm test`
+🛠️ Technologies Used
+Technology	Purpose
+GitHub	Source Code Management
+Jenkins	CI/CD Automation
+Docker	Containerization
+Docker Hub	Container Registry
+Kubernetes	Container Orchestration
+Terraform	Infrastructure as Code
+Ansible	Configuration Management
+AWS EC2	Compute Infrastructure
+AWS ALB	Load Balancing
+AWS Target Group	Traffic Routing
+Calico	Kubernetes Networking
+Metrics Server	Resource Metrics
+HPA	Automatic Scaling
+☁️ AWS Infrastructure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+<img width="1915" height="1037" alt="01-application" src="https://github.com/user-attachments/assets/f3cf0861-3b6d-4fb6-89b9-dea2bf5faedd" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The infrastructure is provisioned using Terraform.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Main Components
+VPC
+Public/Private Subnets
+Internet Gateway
+Route Tables
+EC2 Instances
+Security Groups
+Application Load Balancer
+Target Group
+Kubernetes Infrastructure
+1 Control Plane Node
+2 Worker Nodes
+Calico CNI
+Metrics Server
+Kubernetes Service
+Horizontal Pod Autoscaler
+🔄 CI/CD Pipeline
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Jenkins pipeline performs the following steps:
 
-### `npm run eject`
+Checkout source code from GitHub
+Install dependencies
+Run tests
+Build React application
+Build Docker image
+Login to Docker Hub
+Push Docker image
+Apply Kubernetes manifests
+Update Kubernetes Deployment
+Verify rollout status
+Git Push
+   ↓
+Jenkins
+   ↓
+Test
+   ↓
+Build
+   ↓
+Docker Image
+   ↓
+Docker Hub
+   ↓
+Kubernetes
+   ↓
+Deployment
+   ↓
+Application
+🐳 Docker
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img width="1878" height="903" alt="02-jenkins-pipeline" src="https://github.com/user-attachments/assets/de18ecff-28d0-4261-8a40-4ad5bb57b4c9" />
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application is containerized using Docker.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Docker image:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+hessen2del/ecommerce-frontend
 
-## Learn More
+Images are tagged using the Jenkins build number:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+hessen2del/ecommerce-frontend:<BUILD_NUMBER>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img width="1866" height="911" alt="03-dockerhub" src="https://github.com/user-attachments/assets/f6745a30-d4ca-4f0b-8927-7fe898eb5092" />
 
-### Code Splitting
+and:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+hessen2del/ecommerce-frontend:latest
+☸️ Kubernetes
 
-### Analyzing the Bundle Size
+<img width="1311" height="406" alt="06-kubernetes" src="https://github.com/user-attachments/assets/3be8f320-8974-4d23-952c-515f4f249ee3" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application is deployed inside the production namespace.
 
-### Making a Progressive Web App
+Deployment
+Deployment: my-app
+Replicas: 2
+Service
+Service: my-app-service
+Type: NodePort
+Port: 80
+NodePort: 30000
+High Availability
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The application runs on two worker nodes:
 
-### Advanced Configuration
+Worker 1 → my-app Pod
+Worker 2 → my-app Pod
+📈 Autoscaling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Horizontal Pod Autoscaler is configured based on CPU utilization.
 
-### Deployment
+Minimum Replicas: 2
+Maximum Replicas: 5
+Target CPU: 60%
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Metrics Server provides CPU and memory metrics to Kubernetes.
 
-### `npm run build` fails to minify
+Example:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+CPU: 1% / 60%
+Replicas: 2
+🌐 Load Balancing
+
+The application is exposed through an AWS Application Load Balancer.
+
+Internet
+   ↓
+AWS ALB
+   ↓
+Target Group
+   ↓
+Kubernetes Nodes :30000
+   ↓
+Kubernetes Service
+   ↓
+Application Pods
+
+Target Group health checks ensure that traffic is sent only to healthy Kubernetes nodes.
+
+<img width="1866" height="855" alt="04-target-group" src="https://github.com/user-attachments/assets/93bfc030-48ca-43cd-9a67-49503387ef5e" />
+
+<img width="1873" height="870" alt="05-load-balancer" src="https://github.com/user-attachments/assets/d71d9f6a-c963-45a3-8149-e342018fae22" />
+
+
+⚙️ Configuration Management
+
+Ansible is used to configure the Jenkins server automatically.
+
+The Jenkins server is configured with:
+
+Java 21
+Jenkins
+Docker
+kubectl
+Ansible
+Git
+Required utilities
+
+Jenkins is also configured with access to the Kubernetes cluster.
+
+🔐 Security
+
+Security considerations include:
+
+AWS Security Groups
+Kubernetes RBAC
+Jenkins Kubernetes ServiceAccount
+Docker Hub credentials stored in Jenkins Credentials
+Kubernetes kubeconfig managed for Jenkins
+Restricted NodePort access
+
+
+🚀 Deployment
+1. Provision Infrastructure
+terraform init
+terraform plan
+terraform apply
+2. Configure Servers
+ansible-playbook playbooks/jenkins.yml
+3. Deploy Application
+
+Jenkins automatically executes the CI/CD pipeline after the source code changes.
+
+🧹 Cleanup
+
+To destroy the AWS infrastructure:
+
+terraform plan -destroy
+terraform destroy
+👨‍💻 Project Goals
+
+This project demonstrates practical experience with:
+
+Infrastructure as Code
+Configuration Management
+CI/CD
+Docker
+Kubernetes
+AWS
+Load Balancing
+Kubernetes RBAC
+Autoscaling
+Container Registry
+DevOps Automation
+
+
+
+
+
