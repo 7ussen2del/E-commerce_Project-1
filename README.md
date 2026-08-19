@@ -54,7 +54,7 @@ Terraform, Ansible, Jenkins, Docker, and Kubernetes.
                                       │
                                       ▼
                                   End User
-
+```
 🛠️ Technologies Used
 Technology	Purpose
 GitHub	Source Code Management
@@ -74,8 +74,6 @@ HPA	Automatic Scaling
 
 
 
-
-![Application](./Screen_shots/01-application.png)
 The infrastructure is provisioned using Terraform.
 
 Main Components
@@ -127,7 +125,6 @@ Deployment
 Application
 🐳 Docker
 
-<img width="1878" height="903" alt="02-jenkins-pipeline" src="https://github.com/user-attachments/assets/de18ecff-28d0-4261-8a40-4ad5bb57b4c9" />
 
 The application is containerized using Docker.
 
@@ -139,14 +136,10 @@ Images are tagged using the Jenkins build number:
 
 hessen2del/ecommerce-frontend:<BUILD_NUMBER>
 
-<img width="1866" height="911" alt="03-dockerhub" src="https://github.com/user-attachments/assets/f6745a30-d4ca-4f0b-8927-7fe898eb5092" />
-
 and:
 
 hessen2del/ecommerce-frontend:latest
 ☸️ Kubernetes
-
-<img width="1311" height="406" alt="06-kubernetes" src="https://github.com/user-attachments/assets/3be8f320-8974-4d23-952c-515f4f249ee3" />
 
 The application is deployed inside the production namespace.
 
@@ -196,9 +189,6 @@ Application Pods
 
 Target Group health checks ensure that traffic is sent only to healthy Kubernetes nodes.
 
-<img width="1866" height="855" alt="04-target-group" src="https://github.com/user-attachments/assets/93bfc030-48ca-43cd-9a67-49503387ef5e" />
-
-<img width="1873" height="870" alt="05-load-balancer" src="https://github.com/user-attachments/assets/d71d9f6a-c963-45a3-8149-e342018fae22" />
 
 
 ⚙️ Configuration Management
@@ -263,6 +253,28 @@ Container Registry
 DevOps Automation
 
 
+## Application
 
+![Application](./Screen_shots/01-application.png)
+
+## CI/CD Pipeline
+
+![Jenkins Pipeline](./Screen_shots/02-jenkins-pipeline.png)
+
+## Docker Hub
+
+![Docker Hub](./Screen_shots/03-dockerhub.png)
+
+## AWS Target Group
+
+![Target Group](./Screen_shots/04-target-group.png)
+
+## AWS Load Balancer
+
+![Load Balancer](./Screen_shots/05-load-balancer.png)
+
+## Kubernetes
+
+![Kubernetes](./Screen_shots/06-kubernetes.png)
 
 
