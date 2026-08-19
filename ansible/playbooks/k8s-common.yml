@@ -1,0 +1,6 @@
+---
+- name: Configure K8s Common
+  hosts: k8s
+  become: true
+  roles:
+  - k8s-common

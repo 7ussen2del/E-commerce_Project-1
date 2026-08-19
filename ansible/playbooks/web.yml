@@ -1,5 +1,0 @@
----
-- name: Configure Application EC2
-  hosts: web
-  roles:
-    - web

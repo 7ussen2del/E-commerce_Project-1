@@ -1,4 +1,0 @@
-- name: Install Ansible
-  ansible.builtin.dnf:
-    name: ansible-core
-    state: present

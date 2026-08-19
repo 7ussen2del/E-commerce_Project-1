@@ -1,0 +1,5 @@
+---
+- name: Configure K8s worker
+  hosts: k8s_workers
+  roles:
+  - k8s-worker

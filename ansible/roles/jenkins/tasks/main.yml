@@ -1,5 +1,6 @@
 ---
-- name: Configure Jenkins Server
+
+- name: Configure Web EC2
   ansible.builtin.import_tasks: packages.yml
 
 - name: Install Docker
@@ -8,8 +9,6 @@
 - name: Install Jenkins
   ansible.builtin.import_tasks: jenkins.yml
 
-- name: Install kubectl
-  ansible.builtin.import_tasks: kubectl.yml
 
 - name: Install Ansible
   ansible.builtin.import_tasks: ansible.yml

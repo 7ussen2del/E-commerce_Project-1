@@ -1,0 +1,5 @@
+---
+- name: Configure K8s Master
+  hosts: k8s-master
+  roles:
+  - k8s-master

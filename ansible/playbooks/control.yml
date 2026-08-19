@@ -1,5 +1,0 @@
----
-- name: Configure Control EC2
-  hosts: control
-  roles:
-  - control

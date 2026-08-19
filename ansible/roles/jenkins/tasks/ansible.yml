@@ -1,0 +1,10 @@
+
+---
+- name: Install Java
+  ansible.builtin.dnf:
+    name: "{{ jenkins_java_package }}"
+    state: present
+- name: Install Ansible
+  ansible.builtin.dnf:
+    name: ansible-core
+    state: present

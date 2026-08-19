@@ -1,0 +1,9 @@
+---
+timezone: Africa/Cairo
+hostname: web01
+dependency_packages:
+  - git
+  - unzip
+  - wget
+  - tar
+jenkins_java_package: java-21-openjdk

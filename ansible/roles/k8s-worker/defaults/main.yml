@@ -1,0 +1,8 @@
+---
+k8s_master_group: "k8s_master"
+
+k8s_user: "ec2-user"
+
+master_kubeconfig: "/home/{{ k8s_user }}/.kube/config"
+
+join_token_ttl: "24h"

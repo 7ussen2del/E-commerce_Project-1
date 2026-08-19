@@ -7,12 +7,6 @@
     state: present
   
 
-## Install Jenkins  And Start it
-- name: Install fontconfig
-  ansible.builtin.dnf:
-    name: fontconfig
-    state: present
-
 - name: Download Jenkins repository
   ansible.builtin.get_url:
     url: https://pkg.jenkins.io/rpm/jenkins.repo

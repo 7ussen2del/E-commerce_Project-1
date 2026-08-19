@@ -1,0 +1,8 @@
+---
+cluster_cidr: "10.244.0.0/16"
+
+k8s_user: "ec2-user"
+
+control_plane_endpoint: "k8s-master-nlb-b6e1d67f14d5b5c8.elb.us-east-1.amazonaws.com:6443"
+
+calico_manifest_url: "https://docs.projectcalico.org/manifests/calico.yaml"
