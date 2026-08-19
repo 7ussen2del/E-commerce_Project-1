@@ -1,8 +1,12 @@
 ---
-kubernetes_version: "1.31"
+kubernetes_version: "v1.31"
 
 containerd_package: "containerd"
 
 k8s_kernel_modules:
   - overlay
   - br_netfilter
+
+k8s_common_packages:
+  - conntrack
+  - ethtool

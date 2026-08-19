@@ -60,3 +60,38 @@
     replace: '\1SystemdCgroup = true'
   notify:
     - Restart containerd
+
+- name: Add Kubernetes RPM repository
+  ansible.builtin.yum_repository:
+    name: kubernetes
+    description: Kubernetes
+    baseurl: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/rpm/"
+    enabled: true
+    gpgcheck: true
+    gpgkey: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_version }}/rpm/repodata/repomd.xml.key"
+    exclude:
+      - kubelet
+      - kubeadm
+      - kubectl
+      - cri-tools
+      - kubernetes-cni
+
+- name: Install Kubernetes components
+  ansible.builtin.dnf:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    disable_excludes: kubernetes
+
+- name: Enable kubelet
+  ansible.builtin.systemd:
+    name: kubelet
+    enabled: true
+
+
+- name: Install Kubernetes system dependencies
+  ansible.builtin.dnf:
+    name: "{{ k8s_common_packages }}"
+    state: present

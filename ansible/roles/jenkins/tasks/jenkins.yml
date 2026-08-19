@@ -1,22 +1,31 @@
-## Install Java
-- name: Install Jenkins dependencies
+---
+# Install Java and Jenkins dependencies
+
+- name: Import Amazon Corretto GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://yum.corretto.aws/corretto.key
+
+- name: Add Amazon Corretto repository
+  ansible.builtin.get_url:
+    url: https://yum.corretto.aws/corretto.repo
+    dest: /etc/yum.repos.d/corretto.repo
+    mode: '0644'
+
+- name: Install Java and Jenkins dependencies
   ansible.builtin.dnf:
     name:
+      - java-21-amazon-corretto
       - fontconfig
-      - java-21-openjdk
     state: present
-  
+
+# Install Jenkins
 
 - name: Download Jenkins repository
   ansible.builtin.get_url:
     url: https://pkg.jenkins.io/rpm/jenkins.repo
     dest: /etc/yum.repos.d/jenkins.repo
     mode: '0644'
-
-- name: Upgrade packages
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
 
 - name: Install Jenkins
   ansible.builtin.dnf:
@@ -33,11 +42,13 @@
     name: jenkins
     state: started
 
-- name: Add jenkins user to docker group
+# Configure Jenkins with Docker
+
+- name: Add Jenkins user to Docker group
   ansible.builtin.user:
     name: jenkins
     groups: docker
-    append: yes
+    append: true
 
 - name: Restart Jenkins service to apply group changes
   ansible.builtin.systemd:
