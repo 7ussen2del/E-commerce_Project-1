@@ -73,9 +73,9 @@ HPA	Automatic Scaling
 ☁️ AWS Infrastructure
 
 
-![Uploading 01-application.png…]()
 
 
+![Load Balancer](./Screen_shots/load-balancer.png)
 The infrastructure is provisioned using Terraform.
 
 Main Components
