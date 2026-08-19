@@ -1,8 +1,0 @@
----
-timezone: Africa/Cairo
-hostname: web01
-dependency_packages:
-  - git
-  - unzip
-  - wget
-  - tar
