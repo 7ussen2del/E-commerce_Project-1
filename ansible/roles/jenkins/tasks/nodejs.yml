@@ -1,0 +1,11 @@
+---
+- name: Add NodeSource repository
+  ansible.builtin.shell: |
+    curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
+  args:
+    creates: /etc/yum.repos.d/nodesource-el9.repo
+
+- name: Install Node.js
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present

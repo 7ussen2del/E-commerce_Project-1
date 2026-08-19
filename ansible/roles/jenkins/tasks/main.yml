@@ -13,3 +13,6 @@
 
 - name: Install Ansible
   ansible.builtin.import_tasks: ansible.yml
+
+- name: Install Node.js
+  ansible.builtin.import_tasks: nodejs.yml
