@@ -75,7 +75,7 @@ HPA	Automatic Scaling
 
 
 
-![Load Balancer](./Screen_shots/load-balancer.png)
+![Application](./Screen_shots/01-application.png)
 The infrastructure is provisioned using Terraform.
 
 Main Components
