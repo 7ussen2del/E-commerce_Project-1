@@ -73,7 +73,8 @@ HPA	Automatic Scaling
 ☁️ AWS Infrastructure
 
 
-<img width="1915" height="1037" alt="01-application" src="https://github.com/user-attachments/assets/f3cf0861-3b6d-4fb6-89b9-dea2bf5faedd" />
+![Uploading 01-application.png…]()
+
 
 The infrastructure is provisioned using Terraform.
 
