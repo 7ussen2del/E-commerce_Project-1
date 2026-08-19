@@ -1,3 +1,6 @@
+<img width="1536" height="1024" alt="Project-image" src="https://github.com/user-attachments/assets/97190754-03a9-4263-93c4-092f00e5f8d3" />
+
+
 # 🛒 E-Commerce DevOps Project
 
 ## 📌 Project Overview
